@@ -1,2 +1,8 @@
 /home/claudia/Documents/jobApplications/egitron/ordersystem/src/main/java/com/claudialamas/OrderSystemApp.java
-/home/claudia/Documents/jobApplications/egitron/ordersystem/src/main/java/com/claudialamas/entity/Client.java
+/home/claudia/Documents/jobApplications/egitron/ordersystem/src/main/java/com/claudialamas/config/OpenApiConfig.java
+/home/claudia/Documents/jobApplications/egitron/ordersystem/src/main/java/com/claudialamas/auth/AuthController.java
+/home/claudia/Documents/jobApplications/egitron/ordersystem/src/main/java/com/claudialamas/dto/auth/LoginRequestDto.java
+/home/claudia/Documents/jobApplications/egitron/ordersystem/src/main/java/com/claudialamas/auth/JwtIssuer.java
+/home/claudia/Documents/jobApplications/egitron/ordersystem/src/main/java/com/claudialamas/config/SecurityConfig.java
+/home/claudia/Documents/jobApplications/egitron/ordersystem/src/main/java/com/claudialamas/auth/UserService.java
+/home/claudia/Documents/jobApplications/egitron/ordersystem/src/main/java/com/claudialamas/dto/auth/TokenResponseDto.java
