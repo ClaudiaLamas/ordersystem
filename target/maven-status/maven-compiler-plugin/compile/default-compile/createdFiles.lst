@@ -1,2 +1,9 @@
-com/claudialamas/entity/Client.class
+com/claudialamas/auth/JwtIssuer.class
+com/claudialamas/dto/auth/TokenResponseDto.class
+com/claudialamas/config/OpenApiConfig.class
+com/claudialamas/auth/UserService.class
 com/claudialamas/OrderSystemApp.class
+com/claudialamas/auth/UserService$UserDto.class
+com/claudialamas/auth/AuthController.class
+com/claudialamas/config/SecurityConfig.class
+com/claudialamas/dto/auth/LoginRequestDto.class
