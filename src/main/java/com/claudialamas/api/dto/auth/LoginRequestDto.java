@@ -1,4 +1,4 @@
-package com.claudialamas.dto.auth;
+package com.claudialamas.api.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
