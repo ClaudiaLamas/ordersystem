@@ -27,7 +27,6 @@ public class ClientController {
     @GetMapping("/")
     public ResponseEntity<List<ClientReadDto>> listClients() {
         return new ResponseEntity<>(clientService.listClients(), HttpStatus.OK);
-
     }
 
     @PostMapping("/")
@@ -36,8 +35,8 @@ public class ClientController {
 
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<ClientReadDto> findClientByEmail(@PathVariable String email) throws EmailNotFoundException {
+    @GetMapping("/email")
+    public ResponseEntity<ClientReadDto> findClientByEmail(@RequestParam String email) throws EmailNotFoundException {
         return new ResponseEntity<>(clientService.findClientByEmail(email), HttpStatus.OK);
     }
 
