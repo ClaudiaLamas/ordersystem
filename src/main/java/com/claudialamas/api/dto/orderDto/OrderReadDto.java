@@ -25,5 +25,31 @@ public class OrderReadDto {
         this.validationResult = validationResult;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public String getClientName() {
+        return clientName;
+    }
+
+    public String getClientEmail() {
+        return clientEmail;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public String getValidationResult() {
+        return validationResult;
+    }
 }

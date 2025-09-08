@@ -2,9 +2,11 @@ package com.claudialamas.api.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "Clients")
+@Table(name = "clients")
 public class Client {
 
     @Id
@@ -17,6 +19,8 @@ public class Client {
     @Column(nullable = false, unique = true)
     private int vatNumber;
     private LocalDateTime createdAt = LocalDateTime.now();
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
 
     public Client() {
     }
@@ -59,4 +63,16 @@ public class Client {
         return createdAt;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void addOrder(Order newOrder) {
+        orders.add(newOrder);
+        newOrder.setClient(this);
+    }
 }

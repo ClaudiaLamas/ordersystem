@@ -6,6 +6,8 @@ import com.claudialamas.api.dto.orderDto.OrderReadDto;
 import com.claudialamas.api.dto.orderDto.OrderUpdateDto;
 import com.claudialamas.api.entity.Client;
 import com.claudialamas.api.entity.Order;
+import com.claudialamas.api.entity.OrderStatus;
+import com.claudialamas.api.entity.OrderStatusHistory;
 import com.claudialamas.api.repository.ClientRepository;
 import com.claudialamas.api.repository.OrderRepository;
 import com.claudialamas.exception.client.ClientDoesNotExixtException;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -37,15 +39,12 @@ public class OrderService {
     @Transactional
     public Long addOrder(OrderCreateDto orderCreateDto) throws ClientDoesNotExixtException {
 
-        Optional<Client> client = clientRepository.findById(orderCreateDto.getClientId());
+        Client client = clientRepository.findById(orderCreateDto.getClientId()).orElseThrow(() -> new ClientDoesNotExixtException("Client Not Found"));
 
-        if (!client.isPresent()) {
-            throw new ClientDoesNotExixtException("O cliente não existe!");
-        }
 
         Order order = new Order();
-        order.setClient(client.get());
         order.setValue(orderCreateDto.getValue());
+        client.addOrder(order);
 
         orderRepository.save(order);
 
@@ -54,17 +53,38 @@ public class OrderService {
     }
 
     @Transactional
-    public Long orderUpdateStatus(OrderUpdateDto orderUpdateDto) throws OrderNotFoundException {
+    public OrderReadDto orderUpdateStatus(Long orderId, OrderUpdateDto orderUpdateDto, String changedBy) throws OrderNotFoundException {
 
-        Optional<Order> orderOptional = orderRepository.findById(orderUpdateDto.getOrderId());
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException("order not found: id = " + orderId));
 
-        if (!orderOptional.isPresent()) {
-            throw new OrderNotFoundException("Order not found!");
+
+        OrderStatus old = order.getStatus();
+        OrderStatus newStatus = orderUpdateDto.getNewOrderStatus();
+
+        if (old == newStatus) {
+            return OrderConverter.fromEntityToOrderReadDto(order);
         }
 
-        orderOptional.get().setStatus(orderUpdateDto.getNewOrderStatus());
+        OrderStatusHistory newHistory = new OrderStatusHistory();
+        newHistory.setOldStatus(old);
+        newHistory.setNewStatus(newStatus);
+        newHistory.setChangedBy(changedBy);
 
-        return orderOptional.get().getId();
+        order.addHistory(newHistory);
+        order.setStatus(newStatus);
 
+        orderRepository.save(order);
+
+        return OrderConverter.fromEntityToOrderReadDto(order);
+
+    }
+
+    @Transactional
+    public List<OrderReadDto> listClientOrders(Long clientId) throws ClientDoesNotExixtException {
+
+        Client client = clientRepository.findById(clientId).orElseThrow(() -> new ClientDoesNotExixtException("Cleint not found!"));
+
+        return client.getOrders().stream().map(OrderConverter::fromEntityToOrderReadDto).collect(Collectors.toList());
     }
 }
