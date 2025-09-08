@@ -36,9 +36,16 @@ public class OrderController {
 
     }
 
-    @PostMapping("/status")
-    public ResponseEntity<Long> updateOrderStatus(@Valid @RequestBody OrderUpdateDto orderUpdateDto) throws OrderNotFoundException {
-        return new ResponseEntity<>(orderService.orderUpdateStatus(orderUpdateDto), HttpStatus.OK);
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<OrderReadDto> updateOrderStatus(@PathVariable Long id, @Valid @RequestBody OrderUpdateDto orderUpdateDto) throws OrderNotFoundException {
+
+        return new ResponseEntity<>(orderService.orderUpdateStatus(id, orderUpdateDto, "System"), HttpStatus.OK);
+    }
+
+    @GetMapping("/{clientId}/client_orders")
+    public ResponseEntity<List<OrderReadDto>> listCLientOrders(@PathVariable Long clientId) throws ClientDoesNotExixtException {
+
+        return new ResponseEntity<>(orderService.listClientOrders(clientId), HttpStatus.OK);
     }
 
 

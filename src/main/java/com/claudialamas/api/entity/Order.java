@@ -3,9 +3,11 @@ package com.claudialamas.api.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +18,7 @@ public class Order {
     private Client client;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -28,6 +30,9 @@ public class Order {
     @Column
     private String validationResult;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderStatusHistory> history = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -38,6 +43,14 @@ public class Order {
     public Order(Client client, BigDecimal value) {
         this.client = client;
         this.value = value;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        if (this.status == null) {
+            this.status = OrderStatus.PENDENTE;
+        }
     }
 
     public Client getClient() {
@@ -75,5 +88,18 @@ public class Order {
 
     public void setValidationResult(String validationResult) {
         this.validationResult = validationResult;
+    }
+
+    public List<OrderStatusHistory> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<OrderStatusHistory> history) {
+        this.history = history;
+    }
+
+    public void addHistory(OrderStatusHistory newHistory) {
+        history.add(newHistory);
+        newHistory.setOrder(this);
     }
 }

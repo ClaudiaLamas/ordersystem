@@ -15,8 +15,8 @@ public class UserService {
     }
 
     /**
-     * Procura utilizador por username.
-     * Aqui devolvemos um "demo/demo" com ROLE_USER só para testes.
+     * Find user by username.
+     * returns "demo/demo" with ROLE_USER just for test.
      */
     public Optional<UserDto> findByUsername(String username) {
         if ("demo".equalsIgnoreCase(username)) {
@@ -27,7 +27,6 @@ public class UserService {
         return Optional.empty();
     }
 
-    /** DTO simples do utilizador (não é @Entity). */
     public static class UserDto {
         public final String username;
         public final String passwordHash;

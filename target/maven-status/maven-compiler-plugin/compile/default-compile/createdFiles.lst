@@ -2,6 +2,7 @@ com/claudialamas/api/entity/Client.class
 com/claudialamas/exception/client/EmailNotFoundException.class
 com/claudialamas/auth/JwtIssuer.class
 com/claudialamas/api/dto/orderDto/OrderReadDto.class
+com/claudialamas/api/repository/OrderStatusHistoryRepository.class
 com/claudialamas/api/controller/OrderController.class
 com/claudialamas/api/dto/orderDto/OrderUpdateDto.class
 com/claudialamas/api/dto/auth/LoginRequestDto.class
@@ -13,6 +14,7 @@ com/claudialamas/api/entity/OrderStatus.class
 com/claudialamas/exception/client/EmailAlreadyExistsException.class
 com/claudialamas/api/service/ClientService.class
 com/claudialamas/auth/UserService$UserDto.class
+com/claudialamas/api/service/OrderStatusHistoryService.class
 com/claudialamas/api/dto/auth/TokenResponseDto.class
 com/claudialamas/api/repository/ClientRepository.class
 com/claudialamas/api/controller/ClientController.class
@@ -28,4 +30,5 @@ com/claudialamas/exception/order/OrderNotFoundException.class
 com/claudialamas/exception/client/ClientDoesNotExixtException.class
 com/claudialamas/OrderSystemApp.class
 com/claudialamas/exception/client/VatNumberAlreadyExistsException.class
+com/claudialamas/api/entity/OrderStatusHistory.class
 com/claudialamas/api/entity/Order.class
