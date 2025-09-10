@@ -1,5 +1,6 @@
 package com.claudialamas.clients;
 
+import com.claudialamas.ErrorLog.ErrorLogRepository;
 import com.claudialamas.clients.dto.ClientCreateDto;
 import com.claudialamas.clients.dto.ClientReadDto;
 import com.claudialamas.clients.mapper.ClientConverter;
@@ -18,11 +19,11 @@ import java.util.Optional;
 public class ClientService {
 
     private final ClientRepository clientRepository;
-    private final ClientMapper clientMapper;
+    private final ErrorLogRepository errorLogRepository;
 
-    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper) {
+    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper, ErrorLogRepository errorLogRepository) {
         this.clientRepository = clientRepository;
-        this.clientMapper = clientMapper;
+        this.errorLogRepository = errorLogRepository;
     }
 
     public List<ClientReadDto> listClients() {
@@ -37,6 +38,7 @@ public class ClientService {
         Optional<Client> clientOptional2 = this.clientRepository.findByVatNumber(clientCreateDto.getVatNumber());
 
         if (clientOptional.isPresent()) {
+
             throw new EmailAlreadyExistsException("this email is already associated with a client");
         }
         if (clientOptional2.isPresent()) {

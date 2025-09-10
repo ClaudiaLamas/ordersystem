@@ -30,7 +30,8 @@ public class Order {
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal value;
 
-    @Column
+    @Lob
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String validationResult;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -5,11 +5,13 @@ import com.claudialamas.orders.dto.OrderReadDto;
 import com.claudialamas.clients.Client;
 import com.claudialamas.orders.Order;
 import com.claudialamas.clients.ClientRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 public class OrderConverter {
 
     private ClientRepository clientRepository;
