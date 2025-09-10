@@ -1,6 +1,6 @@
 package com.claudialamas.clients;
 
-import com.claudialamas.ErrorLog.ErrorLogRepository;
+import com.claudialamas.errorLog.ErrorLogRepository;
 import com.claudialamas.clients.dto.ClientCreateDto;
 import com.claudialamas.clients.dto.ClientReadDto;
 import com.claudialamas.clients.mapper.ClientConverter;
