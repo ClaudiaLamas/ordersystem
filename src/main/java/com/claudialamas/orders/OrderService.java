@@ -1,8 +1,8 @@
 package com.claudialamas.orders;
 
-import com.claudialamas.ErrorLog.ErrorLevel;
-import com.claudialamas.ErrorLog.ErrorLogService;
-import com.claudialamas.ErrorLog.dto.ErrorLogCreateDto;
+import com.claudialamas.errorLog.ErrorLevel;
+import com.claudialamas.errorLog.ErrorLogService;
+import com.claudialamas.errorLog.dto.ErrorLogCreateDto;
 import com.claudialamas.clients.Client;
 import com.claudialamas.clients.ClientRepository;
 import com.claudialamas.clients.mapper.ClientMapper;
@@ -58,9 +58,8 @@ public class OrderService {
                     new ClientDoesNotExistException("Client Not Found: id=" + orderCreateDto.getClientId());
 
             ErrorLogCreateDto dto = new ErrorLogCreateDto(ErrorLevel.WARN, ex.getMessage(), ex.getClass().getName());
-
-
             errorLogService.saveErrorLog(dto);
+
             return ex;
         });
 
@@ -96,8 +95,17 @@ public class OrderService {
     @Transactional
     public OrderReadDto orderUpdateStatus(Long orderId, OrderUpdateDto orderUpdateDto, String changedBy) throws OrderNotFoundException {
 
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException("order not found: id = " + orderId));
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order == null) {
+            OrderNotFoundException ex =
+                    new OrderNotFoundException("order not found: id = " + orderId);
+            // Logar no teu ErrorLog
+            ErrorLogCreateDto dto =
+                    new ErrorLogCreateDto(ErrorLevel.WARN, ex.getMessage(), ex.getClass().getName());
+            errorLogService.saveErrorLog(dto);
+            throw ex;
+        }
+
 
 
         OrderStatus old = order.getStatus();
