@@ -1,7 +1,7 @@
 package com.claudialamas.api.service;
 
-import com.claudialamas.api.entity.OrderStatusHistory;
-import com.claudialamas.api.repository.OrderStatusHistoryRepository;
+import com.claudialamas.orders.orderStatusHistory.OrderStatusHistory;
+import com.claudialamas.orders.orderStatusHistory.OrderStatusHistoryRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

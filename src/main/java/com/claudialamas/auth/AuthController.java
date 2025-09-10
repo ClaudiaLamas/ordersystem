@@ -1,7 +1,7 @@
 package com.claudialamas.auth;
 
-import com.claudialamas.api.dto.auth.LoginRequestDto;
-import com.claudialamas.api.dto.auth.TokenResponseDto;
+import com.claudialamas.auth.dto.LoginRequestDto;
+import com.claudialamas.auth.dto.TokenResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
