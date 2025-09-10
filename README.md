@@ -88,6 +88,13 @@ A **Postman collection** with example requests is available in the root folder o
 
 ![Postman](https://img.shields.io/badge/Postman-Collection-orange?logo=postman&logoColor=white)
 
+## Error Reports
+
+The application sends an email, with the error report. This can be trigger by the endpoint `{{baseUrl}}/admin/error-report/today` 
+Example of an email report:
+
+![img.png](docs/img.png)
+
  ## Improvements
 - Authentication:
   - user and password hard coded, should be a table in the database and the password should be hashed with a SALT. 
